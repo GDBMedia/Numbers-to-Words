@@ -55,19 +55,28 @@ public class NumToWord {
       mapstens.put("7", "seventy");
       mapstens.put("8", "eighty");
       mapstens.put("9", "ninety");
+    HashMap<String, String> mapTeens = new HashMap<String, String>();
+      mapTeens.put("11", "eleven");
+      mapTeens.put("12", "twelve");
+      mapTeens.put("13", "thirteen");
+      mapTeens.put("14", "fourteen");
+      mapTeens.put("15", "fifteen");
+      mapTeens.put("16", "sixteen");
+      mapTeens.put("17", "seventeen");
+      mapTeens.put("18", "eighteen");
+      mapTeens.put("19", "nineteen");
       int temp = 0;
     String comma = addCommas(number);
     int numberOfDigits = number.length();
     String returnValue= " ";
-    int placesCounter = numberOfDigits;
     int tempOftemp = numberOfDigits;
     String[] arrayOfSections = comma.split(",");
-    // for (int j= 0;j<tempOftemp;j++){
-    //   numberOfDigits*=numberOfDigits;
-    // }
+    int flag = 0;
   for(int j = 0; j<arrayOfSections.length; j++){
+    flag = 0;
     for(int i=3; i>0; i--){
       int numberAsInteger = Integer.parseInt(arrayOfSections[j]);
+
       if(arrayOfSections[j].length() == 3){
         if(i%3==0){
           temp = numberAsInteger;
@@ -86,18 +95,66 @@ public class NumToWord {
           temp = temp - numberAsInteger % 10;
           temp/=10;
           String tempS = Integer.toString(temp);
-          returnValue+= mapstens.get(tempS);
-          returnValue+= " ";
+          String checkTeens;
+          StringBuilder sb = new StringBuilder();
+          sb.append(arrayOfSections[j].charAt(1));
+          sb.append(arrayOfSections[j].charAt(2));
+          checkTeens = sb.toString();
+
+          switch(checkTeens){
+            case "11":
+              flag = 1;
+              returnValue+= mapTeens.get(checkTeens);
+              break;
+            case "12":
+              flag = 1;
+              returnValue+= mapTeens.get(checkTeens);
+              break;
+            case "13":
+              flag = 1;
+              returnValue+= mapTeens.get(checkTeens);
+              break;
+            case "14":
+              flag = 1;
+              returnValue+= mapTeens.get(checkTeens);
+              break;
+            case "15":
+              flag = 1;
+              returnValue+= mapTeens.get(checkTeens);
+              break;
+            case "16":
+              flag = 1;
+              returnValue+= mapTeens.get(checkTeens);
+              break;
+            case "17":
+              flag = 1;
+              returnValue+= mapTeens.get(checkTeens);
+              break;
+            case "18":
+              flag = 1;
+              returnValue+= mapTeens.get(checkTeens);
+              break;
+            case "19":
+              flag = 1;
+              returnValue+= mapTeens.get(checkTeens);
+              break;
+            default:
+              returnValue+= mapstens.get(tempS);
+              break;
+            }
+            returnValue+= " ";
+
         }
       }
-        if (i%3==1) {
+        if ((i%3==1) && flag == 0) {
           temp = numberAsInteger % 10;
           String tempS = Integer.toString(temp);
           returnValue+= maps.get(tempS);
           returnValue+= " ";
+
         }
-      placesCounter--;
     }
+
     if(j == arrayOfSections.length-2){
       returnValue+=" Thousand ";
     }
